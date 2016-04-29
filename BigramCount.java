@@ -55,9 +55,12 @@ public class BigramCount extends Configured implements Tool {
       
 //    Iterate through words, ignoring spaces.  Save one word to pair with its successor.
       for (String word : WORD_BOUNDARY.split(line)) {
-        if (word.isEmpty()) {
-            continue;
+        
+//      RegEx to match alphanumeric strings and reject non-words.
+        if (!word.matches("\\w+")) {
+        	continue;
         }
+        
 //      Only emit if a pair is found.
         if (previousWord != null) {
         	bigram = new Text(previousWord + " " + word);
